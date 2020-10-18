@@ -22,28 +22,52 @@ body {
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 50px;
 }
 
 h2 {
-    font-size: 45px;
+    font-size: 50px;
     color: #FA8072;
 }
 
 .header-container {
     display:flex;
     justify-content: center;
+    height: 60px;
+    padding: 25px;
+}
+
+.subtitle-container {
+    display:flex;
+    justify-content: center;
     align-items: center;
-    height: 170px;
+    height: 80px;
     flex-wrap: wrap;
+    padding: 0px;
+    background-color: #FA8072;
+
+}
+
+.header-item {
+    display: flex;
+    font-size: 20px;
+    font-weight: 700px;
 }
 
 .footer-container  {
     display:flex;
     justify-content: center;
     align-items: center;
-    height: 170px;
+    height: 80px;
     flex-wrap: wrap;
+}
+
+.footer-item {
+    text-align: center;
+    padding: 20px 20px;
+    font-weight: normal;
+    font-weight: 300px;
+    color: black;
 }
 
 .break {
@@ -52,12 +76,33 @@ h2 {
   padding: 0px;
 }
 
-p {
+
+.subtitle-item {
     text-align: center;
     padding: 20px 20px;
     font-size: 20px;
+    font-weight: 300px;
+    color: white;
 }
 
+@media only screen and (max-width:450px) {
+    h1 {
+        font-size: 30px;
+    }
 
-
-/* TODO: Step 4A1: Make a generic sidebar */
+    h2 {
+        font-size: 30px;
+        color: #FA8072;
+    }
+    .subtitle-container {
+        height: 80px;
+        font-size: 15px;
+        padding: 20px
+        background-color: navy;
+    }
+    .header-item {
+        display: flex;
+        font-size: 12px;
+    }
+    }
+}

@@ -5,26 +5,28 @@
   <title>Sushi Finder</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
+``<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
 <div class="header-container">
-    <h2>🍣Sushi</h2><h1>-Compass🧭</h1>
-    <div class="break"></div>
-    <p>This website finds the location of nearby restaurants that serve sushi.</p>
-    <div class="break"></div>
-    <p>Created using Google Maps Api and Places Api</p>
+    <div class="header-item">
+        <h2>🍣Sushi</h2><h1>-Compass🧭</h1>
+    </div>
+</div>
+
+<div class="subtitle-container">
+    <div class="subtitle-item">
+        <p>Locate sushi restaurants near your location. Please allow access to your location.</p>
+    </div>
 </div>
 
   <div id="map"></div>
 
   <script>
-    /* Note: This example requires that you consent to location sharing when
-     * prompted by your browser. If you see the error "Geolocation permission
-     * denied.", it means you probably did not give permission for the browser * to locate you. */
+
     let pos;
     let map;
     let bounds;
@@ -37,7 +39,6 @@
       bounds = new google.maps.LatLngBounds();
       infoWindow = new google.maps.InfoWindow;
       currentInfoWindow = infoWindow;
-      /* TODO: Step 4A3: Add a generic sidebar */
 
       // Try HTML5 geolocation
       if (navigator.geolocation) {
@@ -48,7 +49,7 @@
           };
           map = new google.maps.Map(document.getElementById('map'), {
             center: pos,
-            zoom: 8
+            zoom: 20
           });
           bounds.extend(pos);
 
@@ -56,12 +57,8 @@
           infoWindow.setContent('Location found.');
           infoWindow.open(map);
           map.setCenter(pos);
-
-          /* TODO: Step 3B2, Call the Places Nearby Search */
-          // Call Places Nearby Search on user's location
           getNearbyPlaces(pos);
         }, () => {
-          // Browser supports geolocation, but user has denied permission
           handleLocationError(true, infoWindow);
         });
       } else {
@@ -73,27 +70,24 @@
     // Handle a geolocation error
     function handleLocationError(browserHasGeolocation, infoWindow) {
       // Set default location to Sydney, Australia
-      pos = { lat: -33.856, lng: 151.215 };
+      pos = { lat: 40.7608, lng: -111.8910 };
       map = new google.maps.Map(document.getElementById('map'), {
         center: pos,
-        zoom: 15
+        zoom: 20
       });
 
       // Display an InfoWindow at the map center
       infoWindow.setPosition(pos);
       infoWindow.setContent(browserHasGeolocation ?
-        'Geolocation permissions denied. Using default location.' :
+        'Geolocation permissions denied. Using default location of Salt Lake City.' :
         'Error: Your browser doesn\'t support geolocation.');
       infoWindow.open(map);
       currentInfoWindow = infoWindow;
 
-      /* TODO: Step 3B3, Call the Places Nearby Search */
-      // Call Places Nearby Search on the default location
+
       getNearbyPlaces(pos);
     }
 
-    /* TODO: Step 3B1, Call the Places Nearby Search */
-    // Perform a Places Nearby Search Request
     function getNearbyPlaces(position) {
       let request = {
         location: position,
@@ -106,15 +100,12 @@
       service.nearbySearch(request, nearbyCallback);
     }
 
-    // Handle the results (up to 20) of the Nearby Search
     function nearbyCallback(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         createMarkers(results);
       }
     }
 
-    /* TODO: Step 3C, Generate markers for search results */
-    // Set markers at the location of each place result
     function createMarkers(places) {
       places.forEach(place => {
         let marker = new google.maps.Marker({
@@ -123,24 +114,20 @@
           title: place.name
         });
 
-        /* TODO: Step 4B: Add click listeners to the markers */
-
-        // Adjust the map bounds to include the location of this marker
         bounds.extend(place.geometry.location);
       });
-      /* Once all the markers have been placed, adjust the bounds of the map to
-       * show all the markers within the visible area. */
+
       map.fitBounds(bounds);
     }
 
-    /* TODO: Step 4C: Show place details in an info window */
   </script>
 
-  <!-- TODO: Step 3A, Load the Places Library -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOuwAU7sI04q7anmKBbGrIGSSRRKNxf9E&libraries=places&callback=initMap">
   </script>
 </body>
 <div class="footer-container">
-    <p>Code:</p>
+    <div class="footer-item">
+        <p>Code: <a href="https://github.com/danieltong-ii/CS260_Creative2">Creative Project 2 Code</a>. Created using the Google Maps Api and Places Api.</p>
+    </div>
 </div>
 </html>
